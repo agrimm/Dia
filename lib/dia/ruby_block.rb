@@ -70,11 +70,16 @@ module Dia
       !!@rescue_stdout
     end
 
-    # This method will tell you if standard error is being redirected in the child process
+    # This method will tell you if standard error output is being redirected in the child process
     # used to execute your sandbox.
+    # 
+    # @return [true]            Returns true when standard error output is being redirected.
     #
-    # @see    #redirect_stderr= See how to enable the "redirect stderr" feature. 
-    # @return [Boolean] returns true or false.
+    # @return [false]           Returns false when standard error output is not being redirected.
+    #
+    # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
+    #
+    # @see    #stderr           Standard error output can be accessed through #stderr.
     def redirect_stderr?
       !!@rescue_stderr
     end
@@ -83,26 +88,27 @@ module Dia
     # in the child process that is spawned to execute a sandbox.
     #
     # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value.
+    #
     # @return [Boolean] Returns the calling argument.
-    # @see    #stdout   See #stderr for accessing the contents of stderr.
+    #
+    # @see    #stderr   See #stderr for accessing the contents of stderr.
     def redirect_stderr=(boolean)
       @redirect_stderr = boolean
     end
 
 
-    # When the "capture stderr" feature is enabled, this method will return the contents
-    # of the standard error stream for the child process last used to execute your sandbox.
+    # When {#redirect_stderr?} returns true,  this method will return the contents
+    # of the standard error stream for the child process last used to execute your sandbox.  
     #
-    # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
-    # of stderr to nil.
+    # @return [String]       Returns the contents of stderr as a String.
     #
-    # @return [String, nil]       Returns the contents of stderr as a String.   
-    #                             Returns nil when no data is available on stderr, or if the 
-    #                             "capture stderr" feature has been disabled for the last
-    #                             call to {#run} or {#run_nonblock}.
+    # @return [nil]          Returns nil when no data is available on stderr.
+    # 
+    # @return [nil]          Returns nil if {#redirect_stderr?} returned false for the last
+    #                        call to {#run} or {#run_nonblock}.
     #
-    # @see #redirect_stderr= This feature is disabled by default. See how to enable it.
-    #   
+    # @see #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=
+    # 
     def stderr
       if pipes_readable?(@pipes[:stderr_reader], @pipes[:stderr_writer])
         @pipes[:stderr_writer].close
