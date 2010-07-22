@@ -8,7 +8,7 @@ suite('RubyBlock') do
       @result = dia.redirect_stderr?
     end
 
-    verify('return true when standard error is being redirected') do
+    verify('return true when standard error output is being redirected') do
       @result == true
     end
 
@@ -18,7 +18,7 @@ suite('RubyBlock') do
       @result = dia.redirect_stderr?
     end
 
-    verify('return false when standard error is not being redirected') do
+    verify('return false when standard error output is not being redirected') do
       @result == false
     end
 
