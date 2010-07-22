@@ -81,7 +81,7 @@ module Dia
     #
     # @see    #stderr           Standard error output can be accessed through #stderr.
     def redirect_stderr?
-      !!@rescue_stderr
+      !!@redirect_stderr
     end
 
     # This method can enable or disable a feature that will capture standard error output
