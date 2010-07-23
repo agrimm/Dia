@@ -28,18 +28,17 @@ module Dia
     end
 
 
-    # When the "capture stdout" feature is enabled, this method will return the contents
-    # of the standard output stream for the child process last used to execute your sandbox.
+    # When {#redirect_stdout?} returns true, this method will return the contents of the
+    # Standard Ouput stream for the child process last used to execute a sandbox.
     #
-    # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
-    # of stdout to nil.
+    # @return [String]        Returns the contents of stdout as a String.  
     #
-    # @return [String, nil]       Returns the contents of stdout as a String.   
-    #                             Returns nil when no data is available on stderr, or if the 
-    #                             "capture stdout" feature has been disabled for the last
-    #                             call to {#run} or {#run_nonblock}.
+    # @return [nil]           Returns nil when no data is available on stdout.
     #
-    # @see #redirect_stdout= This feature is disabled by default. See how to enable it.
+    # @return [nil]           Returns nil if {#redirect_stdout?} returned false before 
+    #                         an immediate call to {#run} or {#run_nonblock}
+    #
+    # @see #redirect_stdout=  This feature is disabled by default. See how to enable it.
     #   
     def stdout
       if pipes_readable?(@pipes[:stdout_reader], @pipes[:stdout_writer])
@@ -50,32 +49,37 @@ module Dia
       @stdout
     end
 
-    # This method can enable or disable a feature that will capture standard output
+    # This method can enable or disable a feature that will capture Standard Output
     # in the child process that is spawned to execute a sandbox.
     #
     # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value.
+    #
     # @return [Boolean] Returns the calling argument.
+    #
     # @see    #stdout   See #stdout for accessing the contents of stdout.
     def redirect_stdout=(boolean)
       @redirect_stdout = boolean
     end
 
-    # This method will tell you if standatd output is being redirected in the child
+    # This method will tell you if Standard Output is being redirected in the child
     # process used to execute your sandbox.
+    #
+    # @return [true]    Returns true when Standard Output is being redirected.
+    #
+    # @return [false]   Returns false when Standard Output is not being redirected.
     #
     # @see    #redirect_stdout=   See how to enable the "redirect stdout" feature.
     #
-    # @return [Boolean] Returns true or false.
     def redirect_stdout?
-      !!@rescue_stdout
+      !!@redirect_stdout
     end
 
-    # This method will tell you if standard error output is being redirected in the child process
+    # This method will tell you if Standard Error output is being redirected in the child process
     # used to execute your sandbox.
     # 
-    # @return [true]            Returns true when standard error output is being redirected.
+    # @return [true]            Returns true when Standard Error output is being redirected.
     #
-    # @return [false]           Returns false when standard error output is not being redirected.
+    # @return [false]           Returns false when Standard Error output is not being redirected.
     #
     # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
     #
@@ -84,7 +88,7 @@ module Dia
       !!@redirect_stderr
     end
 
-    # This method can enable or disable a feature that will capture standard error output
+    # This method can enable or disable a feature that will capture Standard Error output
     # in the child process that is spawned to execute a sandbox.
     #
     # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value.
@@ -97,15 +101,15 @@ module Dia
     end
 
 
-    # When {#redirect_stderr?} returns true,  this method will return the contents
-    # of the standard error stream for the child process last used to execute your sandbox.  
+    # When {#redirect_stderr?} returns true, this method will return the contents
+    # of the Standard Error stream for the child process last used to execute your sandbox.  
     #
     # @return [String]       Returns the contents of stderr as a String.
     #
     # @return [nil]          Returns nil when no data is available on stderr.
     # 
-    # @return [nil]          Returns nil if {#redirect_stderr?} returned false for the last
-    #                        call to {#run} or {#run_nonblock}.
+    # @return [nil]          Returns nil if {#redirect_stderr?} returned false before an 
+    #                        immediate call to {#run} or {#run_nonblock}.
     #
     # @see #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=
     # 
