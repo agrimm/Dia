@@ -1,2 +1,3 @@
 .baretest_*
 docs/*
+run-suite.sh
