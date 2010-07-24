@@ -6,6 +6,11 @@ module Dia
     require('stringio') 
     include Dia::SharedFeatures
 
+    attr_reader :stderr
+    attr_reader :stdout
+    attr_reader :exception
+
+    alias_method :e, :exception
 
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
@@ -28,17 +33,21 @@ module Dia
     end
 
 
-    # When {#redirect_stdout?} returns true, this method will return the contents of the
-    # Standard Ouput stream for the child process last used to execute a sandbox.
+    # Provides access to the Standard Output stream of the child process last used to execute
+    # your sandbox.  
+    # This feature is disabled by default. 
     #
     # @return [String]        Returns the contents of stdout as a String.  
     #
     # @return [nil]           Returns nil when no data is available on stdout.
     #
-    # @return [nil]           Returns nil if {#redirect_stdout?} returned false before 
-    #                         an immediate call to {#run} or {#run_nonblock}
+    # @return [nil]           Returns nil if Dia was not set to redirect stdout before a call
+    #                         to {#run} or {#run_nonblock}. 
     #
-    # @see #redirect_stdout=  This feature is disabled by default. See how to enable it.
+    # @see #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=
+    #
+    # @see #redirect_stdout?  #redirect_stdout? can tell you if Standard Output is being 
+    #                         redirected.
     #   
     def stdout
       if pipes_readable?(@pipes[:stdout_reader], @pipes[:stdout_writer])
@@ -52,26 +61,73 @@ module Dia
     # This method can enable or disable a feature that will capture Standard Output
     # in the child process that is spawned to execute a sandbox.
     #
-    # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value.
+    # @param  [true]   Enable     Passing true will enable the redirection of Standard Output.
     #
-    # @return [Boolean] Returns the calling argument.
+    # @param  [false]  Disable    Passing false will disable the redirection of Standard Output.
     #
-    # @see    #stdout   See #stdout for accessing the contents of stdout.
+    # @return [void]
+    #
+    # @see    #stdout             Standard Output can be accessed through #stdout.
+    #
+    # @see    #redirect_stdout?   #redirect_stdout? can tell you if Standard Output is 
+    #                             being redirected.
     def redirect_stdout=(boolean)
       @redirect_stdout = boolean
     end
 
     # This method will tell you if Standard Output is being redirected in the child
-    # process used to execute your sandbox.
+    # process spawned to execute your sandbox.
     #
-    # @return [true]    Returns true when Standard Output is being redirected.
+    # @return [true]             Returns true when Standard Output is being redirected.
     #
-    # @return [false]   Returns false when Standard Output is not being redirected.
+    # @return [false]            Returns false when Standard Output is not being redirected.
     #
-    # @see    #redirect_stdout=   See how to enable the "redirect stdout" feature.
+    # @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
     #
+    # @see    #stdout            Standard Ouput can be accessed through #stdout.
     def redirect_stdout?
       !!@redirect_stdout
+    end
+
+    # Provides access to the Standard Error stream of the child process last used to execute
+    # your sandbox.  
+    # This feature is disabled by default. 
+    #
+    # @return [String]       Returns the contents of stderr as a String.
+    #
+    # @return [nil]          Returns nil when no data is available on stderr.
+    # 
+    # @return [nil]          Returns nil if Dia was not set to redirect stderr before a call
+    #                        to {#run} or {#run_nonblock}. 
+    #
+    # @see #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=
+    # 
+    # @see #redirect_stderr? #redirect_stderr? can tell you if Standard Error output is being
+    #                        redirected.
+    def stderr
+      if pipes_readable?(@pipes[:stderr_reader], @pipes[:stderr_writer])
+        @pipes[:stderr_writer].close
+        @stderr = @pipes[:stderr_reader].read
+        @pipes[:stderr_reader].close
+      end
+      @stderr
+    end
+
+    # This method can enable or disable a feature that will capture Standard Error output
+    # in the child process that is spawned to execute a sandbox.
+    #
+    # @param  [true]   Enable   Passing true will enable the redirection of Standard Error output.
+    #
+    # @param  [false]  Disable  Passing false will disable the redirection of Standard Error output.
+    #
+    # @return [void]
+    #
+    # @see    #stderr           Standard Error output can be accessed through #stderr.
+    #
+    # @see    #redirect_stderr? #redirect_stderr? can tell you if Standard Error output is being
+    #                           redirected.
+    def redirect_stderr=(boolean)
+      @redirect_stderr = boolean
     end
 
     # This method will tell you if Standard Error output is being redirected in the child process
@@ -83,108 +139,80 @@ module Dia
     #
     # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
     #
-    # @see    #stderr           Standard error output can be accessed through #stderr.
+    # @see    #stderr           Standard Error output can be accessed through #stderr.
     def redirect_stderr?
       !!@redirect_stderr
     end
 
-    # This method can enable or disable a feature that will capture Standard Error output
-    # in the child process that is spawned to execute a sandbox.
-    #
-    # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value.
-    #
-    # @return [Boolean] Returns the calling argument.
-    #
-    # @see    #stderr   See #stderr for accessing the contents of stderr.
-    def redirect_stderr=(boolean)
-      @redirect_stderr = boolean
-    end
-
-
-    # When {#redirect_stderr?} returns true, this method will return the contents
-    # of the Standard Error stream for the child process last used to execute your sandbox.  
-    #
-    # @return [String]       Returns the contents of stderr as a String.
-    #
-    # @return [nil]          Returns nil when no data is available on stderr.
-    # 
-    # @return [nil]          Returns nil if {#redirect_stderr?} returned false before an 
-    #                        immediate call to {#run} or {#run_nonblock}.
-    #
-    # @see #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=
-    # 
-    def stderr
-      if pipes_readable?(@pipes[:stderr_reader], @pipes[:stderr_writer])
-        @pipes[:stderr_writer].close
-        @stderr = @pipes[:stderr_reader].read
-        @pipes[:stderr_reader].close
-      end
-      @stderr
-    end
-
     # This method will tell you if an exception has been raised in the child process
-    # used to execute your sandbox.   
-    # The "capture exception" feature must be enabled for this method to ever
-    # return true. 
+    # spawned to execute your sandbox.   
     # 
-    # @see    #rescue_exception= See #rescue_exception= for enabling the capture
-    #                            of raised exceptions in your sandbox.
+    # @return [true]              Returns true when an exception has been rasied.
     #
-    # @see    #exception         See the #exception method for accessing an 
-    #                            exception raised in your sandbox.
+    # @return [false]             Returns false when an exception has not been raised.
     #
-    # @return [Boolean]          Returns true or false.
+    # @return [false]             Returns false if Dia was not set to capture exceptions
+    #                             before a call to {#run} or {#run_nonblock}. 
+    #
+    # @see    #rescue_exception=  The capture of exceptions can be enabled or disabled through 
+    #                             #rescue_exception=
+    #
+    # @see    #exception          An exception can be accessed through the #exception 
+    #                             method.
+    #
+    #
     def exception_raised?
       !!exception
     end
 
-    # This method will tell you if the {#rescue_exception=} feature is enabled by
-    # returning a boolean.
+    # This method will tell you if an exception raised in the child process used to 
+    # spawn your sandbox will be captured/rescued.
     #
-    # @see    #rescue_exception= See #rescue_exception= for enabling the capture
-    #                            of raised exceptions in your sandbox.
+    # @return [true]              Returns true when exceptions are being captured.
     #
-    # @see    #exception         See the #exception method for accessing an 
-    #                            exception raised in your sandbox.
-    #
-    # @return [Boolean] Returns true or false.
+    # @return [false]             Returns false when are exceptions are not being 
+    #                             captured.
     # @since  2.0.0
+    #
+    # @see    #rescue_exception=  The capture of exceptions can be enabled or disabled through 
+    #                             #rescue_exception=
     def rescue_exception?
       !!@rescue
     end
 
-    # This method can enable or disable a feature that will try to capture 
-    # raised exceptions in the child process that is spawned to execute a sandbox.
+    # This method can enable or disable a feature that will capture/rescue 
+    # exceptions that are raised in the child process used to execute your sandbox.
     #
-    # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value. 
+    # @param  [true]   Enable     Passing true will enable the capture of exceptions.
     #
-    # @return [Boolean] Returns the calling argument.
+    # @param  [false]  Disable    Passing false will disable the capture of exceptions.
     #
-    # @see    #exception See #exception for information on how to access 
-    #                    the data of an exception raised in your sandbox.
+    # @return [void]         
     #
+    # @see    #exception          An exception can be accessed through the #exception 
+    #                             method.
     # @since 2.0.0
     def rescue_exception=(boolean)
       @rescue = boolean
     end
 
-    # When the "capture exceptions" feature is enabled and an exception has been raised in
-    # the child process used to execute your sandbox, this method will return a subclass
-    # of Struct whose attributes represent the exception data. 
-    #
-    # Every call {#run} or {#run_nonblock} will reset the instance variable referencing the
-    # object storing exception data to nil.
+
+    # Provides access to the data of an exception object raised in the child process last used to 
+    # execute your sandbox.  
+    # This feature is disabled by default.  
     # 
-    # @return [Dia::ExceptionStruct, nil] Returns an instance of {#Dia::ExceptionStruct}.  
-    #                                     Returns nil when there is no exception available or if 
-    #                                     the "capture exceptions" feature has been disabled for
-    #                                     the last call to {#run} or {#run_nonblock}.   
+    # @return [Dia::ExceptionStruct] Returns an instance of {ExceptionStruct} when an
+    #                                exception has been captured.
+    # 
+    # @return [nil]                  Returns nil when there is no exception available.  
+    # 
+    # @return [nil]                  Returns nil if Dia was not set to capture exceptions before a
+    #                                call to {#run} or {#run_nonblock}. 
     #
-    # @see #rescue_exception=             The "capture exception" feature is disabled by default.  
-    #                                     See how to enable it.
+    # @see    #rescue_exception=     The capture of exceptions can be enabled or disabled through 
+    #                                #rescue_exception=
     #
-    # @see Dia::ExceptionStruct           The documentation for Dia::ExceptionStruct.
-    #
+    # @see    Dia::ExceptionStruct   Dia::ExceptionStruct.
     # @since 1.5
     def exception
       if pipes_readable?(@pipes[:exception_reader], @pipes[:exception_writer]) 
@@ -197,26 +225,25 @@ module Dia
       @e
     end
 
-    # The run method will spawn a child process to execute the block supplied to the constructer 
-    # in a sandbox.   
+    # The run method will spawn a child process and execute the block supplied to the constructor
+    # in a sandbox.  
     # This method will block. See {#run_nonblock} for the non-blocking form of
     # this method.
     #
-    # @param  [Arguments] Arguments   A variable amount of arguments that will 
-    #                                 be passed onto the block supplied to the 
-    #                                 constructer. Optional.
+    # @param  [Arguments] Arguments   A variable amount of arguments that will be passed onto the
+    #                                 the block supplied to the constructor.
     #
-    # @raise  [SystemCallError]       It may raise a number of subclasses of SystemCallError 
+    # @raise  [SystemCallError]       It will raise a number of subclasses of SystemCallError 
     #                                 in a child process if a sandbox violates imposed 
     #                                 restrictions.   
     #
-    # @raise  [Dia::SandboxException] It may raise 
+    # @raise  [Dia::SandboxException] It will raise 
     #                                 {Dia::Exceptions::SandboxException}
     #                                 in a child process if it was not possible
-    #                                 to initialize a sandbox environment. 
+    #                                 to initialize a sandbox. 
     #
-    # @return [Fixnum]                The Process ID(PID) that the sandbox has
-    #                                 been launched under.
+    # @return [Fixnum]                The Process ID(PID) of the child process used to execute a
+    #                                 sandbox.  
     def run(*args)
       launch(*args) 
 

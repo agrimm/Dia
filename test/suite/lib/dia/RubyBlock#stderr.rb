@@ -8,7 +8,7 @@ suite('RubyBlock') do
         @result = nil
       end
 
-      exercise('When #redirect_stderr? returns true, and $stderr is written to.') do
+      exercise('When stderr redirection is enabled, and $stderr is written to.') do
         dia = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
           $stderr.print('I have been written to.')
         end
@@ -21,7 +21,7 @@ suite('RubyBlock') do
         @result == 'I have been written to.'
       end
 
-      exercise('When #redirect_stderr? returns true, but $stderr is not written to.') do
+      exercise('When stderr redirection is enabled, but $stderr is not written to.') do
         dia = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { }
         dia.redirect_stderr = true
         dia.run
@@ -32,7 +32,7 @@ suite('RubyBlock') do
         @result == nil
       end
 
-      exercise('When #redirect_stderr? returns false, and $stderr is written to.') do
+      exercise('When stderr redirection is disabled, and $stderr is written to.') do
         dia = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
           $stderr.print "\b"
         end

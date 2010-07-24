@@ -4,7 +4,7 @@ suite('RubyBlock') do
 
     suite('Return values') do
     
-      exercise('When #redirect_stdout? returns true, and $stdout is written to.') do
+      exercise('When stdout redirection is enabled, and $stdout is written to.') do
         dia = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
           $stdout.print 'Hello!'
         end
@@ -17,7 +17,7 @@ suite('RubyBlock') do
         @result == 'Hello!'
       end
 
-      exercise('When #redirect_stdout? returns true, and $stdout is not written to.') do
+      exercise('When stdout redirection is enabled, and $stdout is not written to.') do
         dia = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { }
         dia.redirect_stdout = true
         @result = dia.stdout
@@ -27,7 +27,7 @@ suite('RubyBlock') do
         @result == nil
       end
 
-      exercise('When #redirect_stdout? returns false, and $stdout is written to.') do
+      exercise('When stdout redirection is disabled, and $stdout is written to.') do
         dia = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
           $stdout.print "\b"
         end
