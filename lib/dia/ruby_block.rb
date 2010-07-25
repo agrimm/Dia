@@ -1,5 +1,6 @@
 module Dia
 
+  # The RubyBlock class provides an interface for executing a block of ruby code in a sandbox.
   class RubyBlock
 
     require('io/wait') 

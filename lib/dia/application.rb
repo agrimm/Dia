@@ -1,5 +1,6 @@
 module Dia
 
+  # The Application class provides an interface for executing an application inside a sandbox.
   class Application
     include Dia::SharedFeatures
 
