@@ -5,24 +5,25 @@ module Dia
   # {Dia::Application Dia::Application} and {Dia::RubyBlock Dia::RubyBlock}.  
   # This module shoudln't be interacted with directly. 
   module SharedFeatures
-    
-    # @return  [Fixnum, nil]  Returns the Process ID(PID) of the last child process that was
-    #                         used to execute a sandbox.  
-    #                         Returns nil if #run or #run_nonblock has not been called yet.
+   
+    attr_reader :pid
+
+    # @return  [Fixnum]       Returns the Process ID(PID) of the last child process to execute a
+    #                         a sandbox.
+    #
+    # @return  [nil]          Returns nil if #run or #run_nonblock have not been called.
     def pid
       @pid
     end
   
-    # The exit_status method will return the exit status of your sandbox.  
-    # This method *will* block until the child process(your sandbox) exits
-    # when being used with #run_nonblock.
+    # The exit_status method will return the exit status of the child process 
+    # used to execute a sandbox.      
+    # This method blocks until the spawned process exits when being used with #run_nonblock.
     #
-    # @return [Fixnum, nil] Returns the exit status of your sandbox as a 
-    #                       Fixnum.  
-    #                       Returns nil if #run or #run_nonblock has not
-    #                       been called yet.  
-    #                       Returns nil if the process hasn't exited yet and 
-    #                       #run is being used.
+    # @return [Fixnum]      Returns the exit status as a Fixnum. 
+    #
+    # @return [nil]         Returns nil if #run or #run_nonblock have not been called.
+    #
     # @since 1.5
     def exit_status()
       unless @exit_status.nil?
@@ -31,22 +32,14 @@ module Dia
       end
     end
 
-    # The terminate method will send the SIGKILL signal to your sandbox.
+    # The terminate method will terminate the child process executing a sandbox.
     #
-    # To prevent the possible accumulation of zombies, this method will 
-    # wait to collect the exit status of your sandbox if it doesn't appear 
-    # to have left the process table after sending SIGKILL.
+    # @raise  [SystemCallError] It could raise a number of subclasses of SystemCallError
+    #                           if a signal could not be sent to the child process.
     #
-    # This is a rare event, and when it does happen #terminate shouldn't block
-    # for more than one second.
+    # @return [Fixnum]          Returns 1 when successful.
     #
-    # @raise  [SystemCallError] It may raise a number of subclasses of 
-    #                           SystemCallError if a call to Process.kill 
-    #                           was unsuccessful
-    #
-    # @return [Fixnum, nil]     Returns 1 when successful.     
-    #                           Returns nil if #run or #run_nonblock has not 
-    #                           been called yet. 
+    # @return [nil]             Returns nil if #run or #run_nonblock has not been called. 
     def terminate()
       ret = Process.kill('SIGKILL', @pid) unless @pid.nil?
       # precaution against the collection of zombie processes.
@@ -54,15 +47,17 @@ module Dia
       ret
     end
     
-    # This method will tell you if your sandbox is still running by returning a boolean.
+    # This method can tell you whether the child process used to execute your sandbox is 
+    # running or not.
     #
-    # @raise  [SystemCallError] It may raise a number of subclasses of SystemCallError 
-    #                           if a signal cannot be sent to the process running 
-    #                           a sandbox.
+    # @raise  [SystemCallError] It could raise a number of subclasses of SystemCallError
+    #                           if a signal could not be sent to the child process.
     #
-    # @return [Boolean,nil]     Returns true, false, or nil.  
-    #                           Returns nil if #run or #run_nonblock has 
-    #                           not been called yet.
+    # @return [true]            Returns true when the child process is running.
+    #
+    # @return [false]           Returns false when the child process is not running.
+    #
+    # @return [nil]             Returns nil if #run or #run_nonblock have not been called.
     def running?()
       if @pid.nil?
         nil
