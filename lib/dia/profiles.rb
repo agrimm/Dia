@@ -1,4 +1,8 @@
 module Dia
+
+  # The Profiles module provides a list of profiles which can be passed to the constructor of
+  # {Dia::Application Dia::Application} or {Dia::RubyBlock Dia::RubyBlock} to create sandboxes
+  # with different kinds of restrictions. 
   module Profiles
     extend(FFI::Library)
     ffi_lib(%w(system))

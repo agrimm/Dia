@@ -1,4 +1,6 @@
 module Dia
+
+  # The Functions module exposes C functions which are used to initialize a sandbox.
   module Functions
     extend(FFI::Library)
     ffi_lib(%w(system))

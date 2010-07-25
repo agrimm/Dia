@@ -9,6 +9,7 @@ require(File.expand_path('dia/application'      , File.dirname(__FILE__)))
 require(File.expand_path('dia/exceptions'       , File.dirname(__FILE__)))
 require(File.expand_path('dia/exception_struct' , File.dirname(__FILE__)))
 
+# The Dia module provides a namespace for all classes and modules Dia needs to operate.
 module Dia
   VERSION = '2.0.0'
 end

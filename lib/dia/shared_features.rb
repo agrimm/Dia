@@ -1,5 +1,9 @@
 module Dia
 
+
+  # The SharedFeatures module implements methods which are shared by 
+  # {Dia::Application Dia::Application} and {Dia::RubyBlock Dia::RubyBlock}.  
+  # This module shoudln't be interacted with directly. 
   module SharedFeatures
     
     # @return  [Fixnum, nil]  Returns the Process ID(PID) of the last child process that was
