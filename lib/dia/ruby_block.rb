@@ -228,8 +228,12 @@ module Dia
 
     # The run method will spawn a child process and execute the block supplied to the constructor
     # in a sandbox.  
-    # This method will block. See {#run_nonblock} for the non-blocking form of
-    # this method.
+    # This method will block. See {#run_nonblock} for the non-blocking form of this method.  
+    #
+    # **Side Effects:**  
+    #
+    # * When this method is called, it will reset the instance variables returned by {#exception},
+    #   {#stdout}, and {#stderr} to nil.
     #
     # @param  [Arguments] Arguments   A variable amount of arguments that will be passed onto the
     #                                 the block supplied to the constructor.
