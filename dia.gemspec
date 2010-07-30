@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   http://groups.google.com/group/ruby-dia/browse_thread/thread/fc255eeee8c59eeb
  
   [Github]             http://github.com/robgleeson/dia
-  [API Documentation]  http://yardoc.org/docs/robgleeson-dia/
+  [API Documentation]  http://yardoc.org/docs/robgleeson-Dia/
   --------------------------------------------------------------------------------  
   MESSAGE
 
