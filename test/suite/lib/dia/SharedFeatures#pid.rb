@@ -10,7 +10,7 @@ suite('SharedFeatures') do
         @result = dia.pid
       end
 
-      verify('#pid returns the PID of the child process used to execute a sandbox') do
+      verify('#pid returns the PID of the child process last used to execute a sandbox') do
         @result.class == Fixnum
       end
 

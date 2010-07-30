@@ -257,7 +257,8 @@ module Dia
       @pid
     end
 
-    # An identical, but non-blocking form of {#run}.
+    # An identical, but non-blocking form of {Dia::RubyBlock#run}.
+    # @return [Fixnum]
     def run_nonblock(*args)  
       launch(*args)
 
