@@ -1,7 +1,5 @@
 suite('SharedFeatures') do
-
   suite('#pid') do
-
     suite('Return values') do
 
       exercise('When #run has been called.') do
@@ -10,7 +8,7 @@ suite('SharedFeatures') do
         @result = dia.pid
       end
 
-      verify('#pid returns the PID of the child process last used to execute a sandbox') do
+      verify('It returns the Process ID of the spawned process.') do
         @result.class == Fixnum
       end
 
@@ -24,7 +22,5 @@ suite('SharedFeatures') do
       end
 
     end
-
   end
-
 end

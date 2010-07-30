@@ -1,7 +1,5 @@
-suite('RubyBlock') do
-  
+suite('RubyBlock') do  
   suite('#redirect_stdout?') do
-
     suite('Return values') do
 
       exercise('When stdout is being redirected.') do
@@ -25,7 +23,5 @@ suite('RubyBlock') do
       end
     
     end
-
   end
-
 end

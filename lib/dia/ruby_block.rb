@@ -34,7 +34,7 @@ module Dia
     end
 
 
-    # Provides access to the Standard Output stream of the child process last used to execute
+    # Provides access to the Standard Output stream of the process last used to execute
     # your sandbox.  
     # This feature is disabled by default. 
     #
@@ -60,7 +60,7 @@ module Dia
     end
 
     # This method can enable or disable a feature that will capture Standard Output
-    # in the child process that is spawned to execute a sandbox.
+    # in the process that is spawned to execute a sandbox.
     #
     # @param  [true]   Enable     Passing true will enable the redirection of Standard Output.
     #
@@ -76,7 +76,7 @@ module Dia
       @redirect_stdout = boolean
     end
 
-    # This method will tell you if Standard Output is being redirected in the child
+    # This method will tell you if Standard Output is being redirected in the
     # process spawned to execute your sandbox.
     #
     # @return [true]             Returns true when Standard Output is being redirected.
@@ -90,7 +90,7 @@ module Dia
       !!@redirect_stdout
     end
 
-    # Provides access to the Standard Error stream of the child process last used to execute
+    # Provides access to the Standard Error stream of the process last used to execute
     # your sandbox.  
     # This feature is disabled by default. 
     #
@@ -115,7 +115,7 @@ module Dia
     end
 
     # This method can enable or disable a feature that will capture Standard Error output
-    # in the child process that is spawned to execute a sandbox.
+    # in the process that is spawned to execute a sandbox.
     #
     # @param  [true]   Enable   Passing true will enable the redirection of Standard Error output.
     #
@@ -131,7 +131,7 @@ module Dia
       @redirect_stderr = boolean
     end
 
-    # This method will tell you if Standard Error output is being redirected in the child process
+    # This method will tell you if Standard Error output is being redirected in the process
     # used to execute your sandbox.
     # 
     # @return [true]            Returns true when Standard Error output is being redirected.
@@ -145,7 +145,7 @@ module Dia
       !!@redirect_stderr
     end
 
-    # This method will tell you if an exception has been raised in the child process
+    # This method will tell you if an exception has been raised in the process
     # spawned to execute your sandbox.   
     # 
     # @return [true]              Returns true when an exception has been rasied.
@@ -166,7 +166,7 @@ module Dia
       !!exception
     end
 
-    # This method will tell you if an exception raised in the child process used to 
+    # This method will tell you if an exception raised in the process used to 
     # spawn your sandbox will be captured/rescued.
     #
     # @return [true]              Returns true when exceptions are being captured.
@@ -182,7 +182,7 @@ module Dia
     end
 
     # This method can enable or disable a feature that will capture/rescue 
-    # exceptions that are raised in the child process used to execute your sandbox.
+    # exceptions that are raised in the process used to execute your sandbox.
     #
     # @param  [true]   Enable     Passing true will enable the capture of exceptions.
     #
@@ -198,7 +198,7 @@ module Dia
     end
 
 
-    # Provides access to the data of an exception object raised in the child process last used to 
+    # Provides access to the data of an exception object raised in the process last used to 
     # execute your sandbox.  
     # This feature is disabled by default.  
     # 
@@ -247,8 +247,7 @@ module Dia
     #                                 in a child process if it was not possible
     #                                 to initialize a sandbox. 
     #
-    # @return [Fixnum]                The Process ID(PID) of the child process used to execute a
-    #                                 sandbox.  
+    # @return [Fixnum]                It returns the Process ID of the spawned process
     def run(*args)
       launch(*args) 
 

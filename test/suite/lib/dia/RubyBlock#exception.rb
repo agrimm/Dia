@@ -1,7 +1,5 @@
 suite('RubyBlock') do
-
   suite('#exception') do
-
     suite('Return values') do
       
       exercise('When exceptions are being captured, and an exception is raised.') do
@@ -44,7 +42,5 @@ suite('RubyBlock') do
       end
 
     end
-
   end
-
 end

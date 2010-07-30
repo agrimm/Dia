@@ -1,7 +1,5 @@
 suite('SharedFeatures') do
-
   suite('#terminate') do
-
     suite('Return values') do
    
       exercise('When #terminate terminates a sandbox.') do
@@ -24,7 +22,5 @@ suite('SharedFeatures') do
       end
 
     end
-
   end
-
 end

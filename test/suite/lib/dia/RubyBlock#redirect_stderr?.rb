@@ -1,7 +1,5 @@
-suite('RubyBlock') do
-  
+suite('RubyBlock') do  
   suite('#redirect_stderr?') do
-  
     suite('Return values') do
   
       exercise('When stderr output is being redirected.') do
@@ -25,7 +23,5 @@ suite('RubyBlock') do
       end
 
     end
-
   end
-
 end

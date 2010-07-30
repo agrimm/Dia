@@ -1,7 +1,5 @@
 suite('RubyBlock') do
-
   suite('#rescue_exception?') do
- 
     suite('Return values') do 
 
       exercise('When exceptions are being captured.') do
@@ -25,8 +23,6 @@ suite('RubyBlock') do
       end
 
     end
-
   end
-
 end
 

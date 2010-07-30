@@ -1,7 +1,5 @@
 suite('SharedFeatures') do
-
   suite('#exit_status') do
-
     suite('Return values') do
     
       exercise('When #exit_status is called after #run.') do
@@ -24,7 +22,5 @@ suite('SharedFeatures') do
       end
 
     end
-
   end
-
 end

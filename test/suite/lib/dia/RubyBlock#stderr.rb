@@ -1,7 +1,5 @@
 suite('RubyBlock') do
-
   suite('#stderr') do
-
     suite('Return values') do
 
       setup do
@@ -46,7 +44,5 @@ suite('RubyBlock') do
       end
 
     end
-
   end
-
 end
