@@ -32,18 +32,19 @@ Gem::Specification.new do |s|
   s.has_rdoc = %q{yard}
 
   s.post_install_message = <<-MESSAGE  
-  -------------------------------------------------------------------- 
+  -------------------------------------------------------------------------------- 
   Dia (#{Dia::VERSION})
   
   Thanks for installing Dia, #{Dia::VERSION}! 
 
-  >=2.0.0 releases include public API changes that are not backward
-  compatiable with older releases. Be sure to check the docs!
+  The >=2.0.0 releases are not backward compatiable with the 1.0 series.
+
+  Details of this release can be read at the mailing list:
+  http://groups.google.com/group/ruby-dia/browse_thread/thread/fc255eeee8c59eeb
  
   [Github]             http://github.com/robgleeson/dia
   [API Documentation]  http://yardoc.org/docs/robgleeson-dia/
-  [Mailing List (new)] http://groups.google.com/group/ruby-dia
-  --------------------------------------------------------------------  
+  --------------------------------------------------------------------------------  
   MESSAGE
 
 end
