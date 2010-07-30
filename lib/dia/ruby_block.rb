@@ -77,7 +77,7 @@ module Dia
     end
 
     # This method will tell you if Standard Output is being redirected in the
-    # process spawned to execute your sandbox.
+    # process spawned to execute a sandbox.
     #
     # @return [true]             Returns true when Standard Output is being redirected.
     #
@@ -91,7 +91,7 @@ module Dia
     end
 
     # Provides access to the Standard Error stream of the process last used to execute
-    # your sandbox.  
+    # a sandbox.  
     # This feature is disabled by default. 
     #
     # @return [String]       Returns the contents of stderr as a String.
@@ -132,7 +132,7 @@ module Dia
     end
 
     # This method will tell you if Standard Error output is being redirected in the process
-    # used to execute your sandbox.
+    # spawned to execute a sandbox.
     # 
     # @return [true]            Returns true when Standard Error output is being redirected.
     #
@@ -146,7 +146,7 @@ module Dia
     end
 
     # This method will tell you if an exception has been raised in the process
-    # spawned to execute your sandbox.   
+    # spawned to execute a sandbox.   
     # 
     # @return [true]              Returns true when an exception has been rasied.
     #
@@ -166,8 +166,8 @@ module Dia
       !!exception
     end
 
-    # This method will tell you if an exception raised in the process used to 
-    # spawn your sandbox will be captured/rescued.
+    # This method will tell you if an exception raised in the process spawned to 
+    # spawn a sandbox will be captured/rescued.
     #
     # @return [true]              Returns true when exceptions are being captured.
     #
@@ -182,7 +182,7 @@ module Dia
     end
 
     # This method can enable or disable a feature that will capture/rescue 
-    # exceptions that are raised in the process used to execute your sandbox.
+    # exceptions that are raised in the process spawned to execute your sandbox.
     #
     # @param  [true]   Enable     Passing true will enable the capture of exceptions.
     #
@@ -199,7 +199,7 @@ module Dia
 
 
     # Provides access to the data of an exception object raised in the process last used to 
-    # execute your sandbox.  
+    # execute a sandbox.  
     # This feature is disabled by default.  
     # 
     # @return [Dia::ExceptionStruct] Returns an instance of {ExceptionStruct} when an
