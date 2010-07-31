@@ -33,17 +33,17 @@ Gem::Specification.new do |s|
 
   s.post_install_message = <<-MESSAGE  
   -------------------------------------------------------------------------------- 
-  Dia (#{Dia::VERSION})
-  
   Thanks for installing Dia, #{Dia::VERSION}! 
-
   The >=2.0.0 releases are not backward compatiable with the 1.0 series.
+  
+  Resources: 
+  * API Documentation    http://yardoc.org/docs/robgleeson-Dia/
+  * Github               http://github.com/robgleeson/dia    
+  * Mailing List         http://groups.google.com/group/ruby-dia
 
-  Details of this release can be read at the mailing list:
-  http://groups.google.com/group/ruby-dia/browse_thread/thread/fc255eeee8c59eeb
- 
-  [Github]             http://github.com/robgleeson/dia
-  [API Documentation]  http://yardoc.org/docs/robgleeson-Dia/
+  Release notes are available at the mailing list.
+
+  Happy Hacking!
   --------------------------------------------------------------------------------  
   MESSAGE
 
