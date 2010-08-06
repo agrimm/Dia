@@ -226,6 +226,22 @@ module Dia
       @e
     end
 
+    # Provides access to the return value of the block supplied to the constructor after it has
+    # been executed in a sandbox.
+    #
+    # @return [String] Returns the result of a call from Kernel#inspect on the return value of your
+    #                  block.
+    #           
+    # @return [nil]    Returns nil if {#run} or {#run_nonblock} has not been called yet.
+    def return
+      if pipes_readable?(@pipes[:return_reader], @pipes[:return_writer])
+        @pipes[:return_writer].close
+        @return = @pipes[:return_reader].read
+        @pipes[:return_reader].close
+      end
+      @return
+    end
+
     # The run method will spawn a child process and execute the block supplied to the constructor
     # in a sandbox.  
     # This method will block. See {#run_nonblock} for the non-blocking form of this method.  
@@ -233,7 +249,7 @@ module Dia
     # **Side Effects:**  
     #
     # * When this method is called, it will reset the instance variables returned by {#exception},
-    #   {#stdout}, and {#stderr} to nil.
+    #   {#stdout}, {#stderr},and {#return} to nil.
     #
     # @param  [Arguments] Arguments   A variable amount of arguments that will be passed onto the
     #                                 the block supplied to the constructor.
@@ -268,7 +284,7 @@ module Dia
     private
       # @api private
       def launch(*args)
-        @e = @stdout = @stderr =  nil
+        @e = @stdout = @stderr = @return = nil
         close_pipes_if_needed
         open_pipes_if_needed
 
@@ -278,7 +294,7 @@ module Dia
           if @rescue
             begin
               initialize_sandbox
-              @proc.call(*args)
+              write_return_value(@proc.call(*args))
             rescue SystemExit, SignalException, NoMemoryError => e 
               raise(e)
             rescue Exception => e
@@ -296,13 +312,19 @@ module Dia
           else
             begin
               initialize_sandbox
-              @proc.call(*args)
+              write_return_value(@proc.call(*args))
             ensure
               write_stdout_and_stderr_if_needed
               close_pipes_if_needed
             end
           end
         end
+      end
+
+      def write_return_value(result)
+        @pipes[:return_reader].close
+        @pipes[:return_writer].write(result.inspect)
+        @pipes[:return_writer].close
       end
 
       # @api private
@@ -333,6 +355,7 @@ module Dia
 
       # @api private
       def open_pipes_if_needed
+        @pipes[:return_reader]   , @pipes[:return_writer]    = IO.pipe
         @pipes[:exception_reader], @pipes[:exception_writer] = IO.pipe if @rescue
         @pipes[:stdout_reader]   , @pipes[:stdout_writer]    = IO.pipe if @redirect_stdout
         @pipes[:stderr_reader]   , @pipes[:stderr_writer]    = IO.pipe if @redirect_stderr
@@ -341,8 +364,8 @@ module Dia
       # @api private
       def write_exception(e)
         @pipes[:exception_writer].write(Marshal.dump({ :klass     => e.class.to_s    ,
-                                    :backtrace => e.backtrace.join("\n"),
-                                    :message   => e.message.to_s }) )
+                                                       :backtrace => e.backtrace.join("\n"),
+                                                       :message   => e.message.to_s }) )
       end
 
       # @api private
