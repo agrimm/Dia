@@ -201,7 +201,7 @@ module Dia
     # Provides access to the data of an exception object raised in the process last used to 
     # execute a sandbox.  
     # This feature is disabled by default.  
-    # 
+    #
     # @return [Dia::ExceptionStruct] Returns an instance of {ExceptionStruct} when an
     #                                exception has been captured.
     # 
@@ -226,14 +226,13 @@ module Dia
       @e
     end
 
-    # Provides access to the return value of the block supplied to the constructor after it has
-    # been executed in a sandbox.
+    # Provides access to the return value of the block that has been supplied to the constructor.
     #
-    # @return [String] Returns the result of a call from Kernel#inspect on the return value of your
-    #                  block.
+    # @return [String] Returns the result of #inspect on the return value of the block 
+    #                  that has been executed.
     #           
     # @return [nil]    Returns nil if {#run} or {#run_nonblock} has not been called yet.
-    def return
+    def value
       if pipes_readable?(@pipes[:return_reader], @pipes[:return_writer])
         @pipes[:return_writer].close
         @return = @pipes[:return_reader].read
@@ -249,7 +248,7 @@ module Dia
     # **Side Effects:**  
     #
     # * When this method is called, it will reset the instance variables returned by {#exception},
-    #   {#stdout}, {#stderr},and {#return} to nil.
+    #   {#stdout}, {#stderr},and {#value} to nil.
     #
     # @param  [Arguments] Arguments   A variable amount of arguments that will be passed onto the
     #                                 the block supplied to the constructor.
