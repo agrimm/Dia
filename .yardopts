@@ -4,3 +4,4 @@
 --
 lib/**/*.rb
 README.mkd
+--main README.mkd
