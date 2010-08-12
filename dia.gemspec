@@ -15,15 +15,11 @@ Gem::Specification.new do |s|
                      The Ruby API was designed to be simple, and a joy to use. 
                      I hope you feel the same way :-)}
 
-  s.summary     = %q{Through the use of technology found on Apple's Leopard and Snow Leopard 
-                     operating systems, Dia can create dynamic and robust sandbox environments 
-                     for applications and for blocks of ruby code. 
-                     The Ruby API was designed to be simple, and a joy to use. 
-                     I hope you feel the same way :-)}
-
+  s.summary     = s.description
  
   s.require_paths = ["lib"]
-  s.files         = Dir["lib/**/*.rb"] + Dir["test/**/*.rb"] + %w(COPYING README.mkd dia.gemspec)
+  s.files         = Dir["lib/**/*.rb"] + Dir["test/**/*.rb"] + %w(COPYING Changelog README.mkd 
+                                                                  dia.gemspec)
   s.test_files    = Dir["test/**/*.rb"]
   
 
