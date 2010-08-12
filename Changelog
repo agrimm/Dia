@@ -1,5 +1,10 @@
 2010-08-12  Robert Gleeson <rob@flowof.info> (v2.1.0)
 
+	* Implemented Dia::RubyBlock#value.
+
+	* Dia::Rubyblock#redirect_stdout=, Dia::RubyBlock#redirect_stderr=,
+	  and Dia::RubyBlock#rescue_exception= are now documented as setters.
+
 	* Correct inconsistencies in the documentation for
 	  Dia::RubyBlock#redirect_stdout= , Dia::RubyBlock#redirect_stderr=,
 	  Dia::RubyBlock#exception_raised?, Dia::RubyBlock#rescue_exception?,
@@ -7,4 +12,4 @@
 
 	* Added Changelog to track changes.
 
-	* Implemented Dia::RubyBlock#value.
+

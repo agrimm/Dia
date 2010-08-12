@@ -11,6 +11,10 @@ module Dia
     attr_reader :stdout
     attr_reader :exception
 
+    attr_writer :redirect_stderr
+    attr_writer :redirect_stdout
+    attr_writer :rescue_exception
+
     alias_method :e, :exception
 
     # @param  [String] Profile Accepts one of five profiles which can be found
