@@ -1,0 +1,6 @@
+2010-08-12  Robert Gleeson <rob@flowof.info> (v2.1.0)
+
+	* Added Changelog to track changes.
+	* Implemented Dia::RubyBlock#value.
+
+
