@@ -1,9 +1,13 @@
 2010-08-12  Robert Gleeson <rob@flowof.info> (v2.2.1)
 
+	* Fixed a bug that saw #e ( an alias for #exception ) always return nil.
+	  #exception itself worked properly.
+
 	* #redirect_stderr, #redirect_stdout, and #rescue_exception are 
-	  are documented as getters. 
+	  have been added to the RubyBlock class and are documented as getters. 
 	  They're aliased as #redirect_stderr?, #redirect_stdout? and 
 	  #rescue_exception? respectively.
+
 
 2010-08-12  Robert Gleeson <rob@flowof.info> (v2.1.0)
 
