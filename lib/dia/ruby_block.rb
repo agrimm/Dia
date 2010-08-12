@@ -147,8 +147,8 @@ module Dia
       !!@redirect_stderr
     end
 
-    # This method will tell you if an exception has been rescued in the process that is
-    # spawned to execute a sandbox.   
+    # This method will tell you if an exception has been rescued in the process that was
+    # last used to execute a sandbox.   
     # 
     # @return [true]              Returns true when an exception has been rescued.
     #
