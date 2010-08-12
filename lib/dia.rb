@@ -11,5 +11,5 @@ require(File.expand_path('dia/exception_struct' , File.dirname(__FILE__)))
 
 # The Dia module provides a namespace for all classes and modules Dia needs to operate.
 module Dia
-  VERSION = '2.1.0'
+  VERSION = '2.2.1'
 end

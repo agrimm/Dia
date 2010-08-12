@@ -11,11 +11,9 @@ module Dia
     attr_reader :stdout
     attr_reader :exception
 
-    attr_writer :redirect_stderr
-    attr_writer :redirect_stdout
-    attr_writer :rescue_exception
-
-    alias_method :e, :exception
+    attr_accessor :redirect_stderr
+    attr_accessor :redirect_stdout
+    attr_accessor :rescue_exception
 
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
@@ -48,7 +46,8 @@ module Dia
     # @return [nil]           Returns nil if Dia was not set to redirect stdout before a call
     #                         to {#run} or {#run_nonblock}. 
     #
-    # @see #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=
+    # @see #redirect_stdout= Redirection of stdout can be enabled through #redirect_stdout=
+    #
     #
     # @see #redirect_stdout?  #redirect_stdout? can tell you if Standard Output is being 
     #                         redirected.
@@ -89,9 +88,10 @@ module Dia
     # @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
     #
     # @see    #stdout            Standard Ouput can be accessed through #stdout.
-    def redirect_stdout?
+    def redirect_stdout
       !!@redirect_stdout
     end
+    alias :redirect_stdout? :redirect_stdout
 
     # Provides access to the Standard Error stream of the process that was last used to execute
     # a sandbox. This feature is disabled by default. 
@@ -143,12 +143,13 @@ module Dia
     # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
     #
     # @see    #stderr           Standard Error output can be accessed through #stderr.
-    def redirect_stderr?
+    def redirect_stderr
       !!@redirect_stderr
     end
+    alias :redirect_stderr? :redirect_stderr
 
-    # This method will tell you if an exception has been rescued in the process that is
-    # spawned to execute a sandbox.   
+    # This method will tell you if an exception has been rescued in the process that was
+    # last used to execute a sandbox.   
     # 
     # @return [true]              Returns true when an exception has been rescued.
     #
@@ -187,9 +188,10 @@ module Dia
     #
     # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
     #                             #rescue_exception=
-    def rescue_exception?
+    def rescue_exception
       !!@rescue
     end
+    alias :rescue_exception? :rescue_exception
 
     # This method can enable or disable a feature that will try to rescue exceptions 
     # that are raised in the process that is spawned to execute a sandbox.
@@ -235,6 +237,7 @@ module Dia
       end
       @e
     end
+    alias :e :exception
 
     # Provides access to the return value of the block that has been supplied to the constructor.
     #
