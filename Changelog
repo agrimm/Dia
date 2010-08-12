@@ -2,14 +2,16 @@
 
 	* Implemented Dia::RubyBlock#value.
 
+	* Dia::RubyBlock#exception_raised? is deprecated.
+	  Dia::RubyBlock#exception_rescued? should be used instead.
+
 	* Dia::Rubyblock#redirect_stdout=, Dia::RubyBlock#redirect_stderr=,
 	  and Dia::RubyBlock#rescue_exception= are now documented as setters.
 
 	* Correct inconsistencies in the documentation for
 	  Dia::RubyBlock#redirect_stdout= , Dia::RubyBlock#redirect_stderr=,
-	  Dia::RubyBlock#exception_raised?, Dia::RubyBlock#rescue_exception?,
-	  Dia::RubyBlock#rescue_exception=, Dia::RubyBlock#exception.
+	  Dia::RubyBlock#exception_rescued? (formerly Dia::RubyBlock#exception_raised?), 
+	  Dia::RubyBlock#rescue_exception?, Dia::RubyBlock#rescue_exception=, 
+	  Dia::RubyBlock#exception.
 
 	* Added Changelog to track changes.
-
-

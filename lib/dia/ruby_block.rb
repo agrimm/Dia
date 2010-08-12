@@ -147,12 +147,12 @@ module Dia
       !!@redirect_stderr
     end
 
-    # This method will tell you if an exception has been raised in the process that is
+    # This method will tell you if an exception has been rescued in the process that is
     # spawned to execute a sandbox.   
     # 
-    # @return [true]              Returns true when an exception has been rasied.
+    # @return [true]              Returns true when an exception has been rescued.
     #
-    # @return [false]             Returns false when an exception has not been raised.
+    # @return [false]             Returns false when an exception has not been rescued.
     #
     # @return [false]             Returns false if Dia was not set to rescue exceptions
     #                             before a call to {#run} or {#run_nonblock}. 
@@ -162,9 +162,17 @@ module Dia
     #
     # @see    #exception          An exception can be accessed through the #exception 
     #                             method.
+    def exception_rescued?
+      !!exception
+    end
+
+    # @return     [Boolean]
     #
-    #
+    # @deprecated                 This method is deprecated. {Dia::RubyBlock#exception_rescued?} 
+    #                             should be used instead. 
     def exception_raised?
+      $stderr.puts 'WARNING: Dia::RubyBlock#exception_raised? is deprecated and will be ' \
+                   'removed from Dia in a future release.'
       !!exception
     end
 
