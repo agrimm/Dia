@@ -1,4 +1,10 @@
 2010-08-12  Robert Gleeson <rob@flowof.info> (v2.1.0)
 
+	* Correct inconsistencies in the documentation for
+	  Dia::RubyBlock#redirect_stdout= , Dia::RubyBlock#redirect_stderr=,
+	  Dia::RubyBlock#exception_raised?, Dia::RubyBlock#rescue_exception?,
+	  Dia::RubyBlock#rescue_exception=, Dia::RubyBlock#exception.
+
 	* Added Changelog to track changes.
+
 	* Implemented Dia::RubyBlock#value.

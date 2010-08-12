@@ -34,9 +34,8 @@ module Dia
     end
 
 
-    # Provides access to the Standard Output stream of the process last used to execute
-    # your sandbox.  
-    # This feature is disabled by default. 
+    # Provides access to the Standard Output stream of the process that was last used to execute 
+    # a sandbox. This feature is disabled by default. 
     #
     # @return [String]        Returns the contents of stdout as a String.  
     #
@@ -59,7 +58,7 @@ module Dia
       @stdout
     end
 
-    # This method can enable or disable a feature that will capture Standard Output
+    # This method can enable or disable a feature that will redirect Standard Output
     # in the process that is spawned to execute a sandbox.
     #
     # @param  [true]   Enable     Passing true will enable the redirection of Standard Output.
@@ -90,9 +89,8 @@ module Dia
       !!@redirect_stdout
     end
 
-    # Provides access to the Standard Error stream of the process last used to execute
-    # a sandbox.  
-    # This feature is disabled by default. 
+    # Provides access to the Standard Error stream of the process that was last used to execute
+    # a sandbox. This feature is disabled by default. 
     #
     # @return [String]       Returns the contents of stderr as a String.
     #
@@ -114,7 +112,7 @@ module Dia
       @stderr
     end
 
-    # This method can enable or disable a feature that will capture Standard Error output
+    # This method can enable or disable a feature that will redirect Standard Error output
     # in the process that is spawned to execute a sandbox.
     #
     # @param  [true]   Enable   Passing true will enable the redirection of Standard Error output.
@@ -145,17 +143,17 @@ module Dia
       !!@redirect_stderr
     end
 
-    # This method will tell you if an exception has been raised in the process
+    # This method will tell you if an exception has been raised in the process that is
     # spawned to execute a sandbox.   
     # 
     # @return [true]              Returns true when an exception has been rasied.
     #
     # @return [false]             Returns false when an exception has not been raised.
     #
-    # @return [false]             Returns false if Dia was not set to capture exceptions
+    # @return [false]             Returns false if Dia was not set to rescue exceptions
     #                             before a call to {#run} or {#run_nonblock}. 
     #
-    # @see    #rescue_exception=  The capture of exceptions can be enabled or disabled through 
+    # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
     #                             #rescue_exception=
     #
     # @see    #exception          An exception can be accessed through the #exception 
@@ -166,23 +164,23 @@ module Dia
       !!exception
     end
 
-    # This method will tell you if an exception raised in the process spawned to 
-    # spawn a sandbox will be captured/rescued.
-    #
-    # @return [true]              Returns true when exceptions are being captured.
+    # This method will tell you if an exception will be rescued in the process that is
+    # spawned to execute a sandbox.
+    #   
+    # @return [true]              Returns true when exceptions are being rescued.
     #
     # @return [false]             Returns false when are exceptions are not being 
-    #                             captured.
+    #                             rescued.
     # @since  2.0.0
     #
-    # @see    #rescue_exception=  The capture of exceptions can be enabled or disabled through 
+    # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
     #                             #rescue_exception=
     def rescue_exception?
       !!@rescue
     end
 
-    # This method can enable or disable a feature that will capture/rescue 
-    # exceptions that are raised in the process spawned to execute your sandbox.
+    # This method can enable or disable a feature that will try to rescue exceptions 
+    # that are raised in the process that is spawned to execute a sandbox.
     #
     # @param  [true]   Enable     Passing true will enable the capture of exceptions.
     #
@@ -198,22 +196,22 @@ module Dia
     end
 
 
-    # Provides access to the data of an exception object raised in the process last used to 
-    # execute a sandbox.  
-    # This feature is disabled by default.  
+    # Provides access to the data of an exception object that has been rescued in the process 
+    # that was last used to execute a sandbox. This feature is disabled by default.  
     #
     # @return [Dia::ExceptionStruct] Returns an instance of {ExceptionStruct} when an
-    #                                exception has been captured.
+    #                                exception has been rescued.
     # 
     # @return [nil]                  Returns nil when there is no exception available.  
     # 
-    # @return [nil]                  Returns nil if Dia was not set to capture exceptions before a
+    # @return [nil]                  Returns nil if Dia was not set to rescue exceptions before a
     #                                call to {#run} or {#run_nonblock}. 
     #
-    # @see    #rescue_exception=     The capture of exceptions can be enabled or disabled through 
+    # @see    #rescue_exception=     The rescue of exceptions can be enabled or disabled through 
     #                                #rescue_exception=
     #
-    # @see    Dia::ExceptionStruct   Dia::ExceptionStruct.
+    # @see    Dia::ExceptionStruct   Dia::ExceptionStruct
+    # 
     # @since 1.5
     def exception
       if pipes_readable?(@pipes[:exception_reader], @pipes[:exception_writer]) 
@@ -248,7 +246,7 @@ module Dia
     # **Side Effects:**  
     #
     # * When this method is called, it will reset the instance variables returned by {#exception},
-    #   {#stdout}, {#stderr},and {#value} to nil.
+    #   {#stdout}, {#stderr}, and {#value} to nil.
     #
     # @param  [Arguments] Arguments   A variable amount of arguments that will be passed onto the
     #                                 the block supplied to the constructor.
