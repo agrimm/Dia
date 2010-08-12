@@ -15,8 +15,6 @@ module Dia
     attr_accessor :redirect_stdout
     attr_accessor :rescue_exception
 
-    alias_method :e, :exception
-
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
     #
@@ -239,6 +237,7 @@ module Dia
       end
       @e
     end
+    alias :e :exception
 
     # Provides access to the return value of the block that has been supplied to the constructor.
     #
