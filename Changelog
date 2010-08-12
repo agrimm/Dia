@@ -1,3 +1,10 @@
+2010-08-12  Robert Gleeson <rob@flowof.info> (v2.2.1)
+
+	* #redirect_stderr, #redirect_stdout, and #rescue_exception are 
+	  are documented as getters. 
+	  They're aliased as #redirect_stderr?, #redirect_stdout? and 
+	  #rescue_exception? respectively.
+
 2010-08-12  Robert Gleeson <rob@flowof.info> (v2.1.0)
 
 	* Implemented Dia::RubyBlock#value.
