@@ -1,7 +1,7 @@
 -m markdown
 -o docs
 --no-private
---
-lib/**/*.rb
-README.mkd
 --main README.mkd
+-
+README.mkd
+
