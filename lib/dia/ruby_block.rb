@@ -11,10 +11,6 @@ module Dia
     attr_reader :stdout
     attr_reader :exception
 
-    attr_accessor :redirect_stderr
-    attr_accessor :redirect_stdout
-    attr_accessor :rescue_exception
-
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
     #
