@@ -1,7 +1,7 @@
 -m markdown
 -o docs
 --no-private
---main README.mkd
+--readme README.mkd
 -
 Changelog
 
