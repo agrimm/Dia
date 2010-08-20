@@ -3,6 +3,7 @@
 --no-private
 --readme README.mkd
 --hide-void-return
+--no-cache
 -
 Changelog
 
