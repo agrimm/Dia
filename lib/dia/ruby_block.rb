@@ -15,9 +15,9 @@ module Dia
     #   This method can enable or disable a feature that will redirect Standard Error output
     #   in the process that is spawned to execute a sandbox.
     #
-    #   @param  [true]   Enable   Passing true will enable the redirection of Standard Error output.
+    #   @param  [Boolean]   Enable  Passing true will enable the redirection of Standard Error output.
     #
-    #   @param  [false]  Disable  Passing false will disable the redirection of Standard Error output.
+    #   @param  [Boolean]  Disable  Passing false will disable the redirection of Standard Error output.
     #
     #   @return [void]
     #
@@ -40,16 +40,16 @@ module Dia
     #   This method can enable or disable a feature that will redirect Standard Output
     #   in the process that is spawned to execute a sandbox.
     #
-    #   @param  [true]   Enable     Passing true will enable the redirection of Standard Output.
+    #   @param  [Boolean]   Enable    Passing true will enable the redirection of Standard Output.
     #
-    #   @param  [false]  Disable    Passing false will disable the redirection of Standard Output.
+    #   @param  [Boolean]  Disable    Passing false will disable the redirection of Standard Output.
     #
     #   @return [void]
     #
-    #   @see    #stdout             Standard Output can be accessed through #stdout.
+    #   @see    #stdout               Standard Output can be accessed through #stdout.
     #
-    #   @see    #redirect_stdout?   #redirect_stdout? can tell you if Standard Output is 
-    #                               being redirected.
+    #   @see    #redirect_stdout?     #redirect_stdout? can tell you if Standard Output is 
+    #                                 being redirected.
     #                               
     # @overload redirect_stdout
     #   This method provides access to the object passed to {#redirect_stdout=}
@@ -66,14 +66,14 @@ module Dia
     #   This method can enable or disable a feature that will try to rescue exceptions 
     #   that are raised in the process that is spawned to execute a sandbox.
     #
-    #   @param  [true]   Enable     Passing true will enable the capture of exceptions.
+    #   @param  [Boolean]   Enable    Passing true will enable the capture of exceptions.
     #
-    #   @param  [false]  Disable    Passing false will disable the capture of exceptions.
+    #   @param  [Boolean]  Disable    Passing false will disable the capture of exceptions.
     #
     #   @return [void]         
     #
-    #   @see    #exception          An exception can be accessed through the #exception 
-    #                               method.
+    #   @see    #exception            An exception can be accessed through the #exception 
+    #                                 method.
     #   @since 2.0.0
     #   
     # @overload rescue_exception
@@ -143,13 +143,13 @@ module Dia
     # This method will tell you if Standard Output is being redirected in the
     # process spawned to execute a sandbox.
     #
-    # @return [true]             Returns true when Standard Output is being redirected.
+    # @return [Boolean]           Returns true when Standard Output is being redirected.
     #
-    # @return [false]            Returns false when Standard Output is not being redirected.
+    # @return [Boolean]           Returns false when Standard Output is not being redirected.
     #
-    # @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
+    # @see    #redirect_stdout=   Redirection of stdout can be enabled through #redirect_stdout=.  
     #
-    # @see    #stdout            Standard Ouput can be accessed through #stdout.
+    # @see    #stdout             Standard Ouput can be accessed through #stdout.
     def redirect_stdout?
       !!@redirect_stdout
     end
@@ -188,13 +188,13 @@ module Dia
     # This method will tell you if Standard Error output is being redirected in the process
     # spawned to execute a sandbox.
     # 
-    # @return [true]            Returns true when Standard Error output is being redirected.
+    # @return [Boolean]           Returns true when Standard Error output is being redirected.
     #
-    # @return [false]           Returns false when Standard Error output is not being redirected.
+    # @return [Boolean]           Returns false when Standard Error output is not being redirected.
     #
-    # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
+    # @see    #redirect_stderr=   Redirection of stderr can be enabled through #redirect_stderr=.
     #
-    # @see    #stderr           Standard Error output can be accessed through #stderr.
+    # @see    #stderr             Standard Error output can be accessed through #stderr.
     def redirect_stderr?
       !!@redirect_stderr
     end
@@ -202,18 +202,18 @@ module Dia
     # This method will tell you if an exception has been rescued in the process that was
     # last used to execute a sandbox.   
     # 
-    # @return [true]              Returns true when an exception has been rescued.
+    # @return [Boolean]              Returns true when an exception has been rescued.
     #
-    # @return [false]             Returns false when an exception has not been rescued.
+    # @return [Boolean]              Returns false when an exception has not been rescued.
     #
-    # @return [false]             Returns false if Dia was not set to rescue exceptions
-    #                             before a call to {#run} or {#run_nonblock}. 
+    # @return [Boolean]              Returns false if Dia was not set to rescue exceptions
+    #                                before a call to {#run} or {#run_nonblock}. 
     #
-    # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
-    #                             #rescue_exception=
+    # @see    #rescue_exception=     The rescue of exceptions can be enabled or disabled through 
+    #                                #rescue_exception=
     #
-    # @see    #exception          An exception can be accessed through the #exception 
-    #                             method.
+    # @see    #exception             An exception can be accessed through the #exception 
+    #                                method.
     def exception_rescued?
       !!exception
     end
@@ -231,14 +231,14 @@ module Dia
     # This method will tell you if an exception will be rescued in the process that is
     # spawned to execute a sandbox.
     #   
-    # @return [true]              Returns true when exceptions are being rescued.
+    # @return [Boolean]              Returns true when exceptions are being rescued.
     #
-    # @return [false]             Returns false when are exceptions are not being 
-    #                             rescued.
+    # @return [Boolean]              Returns false when are exceptions are not being 
+    #                                rescued.
     # @since  2.0.0
     #
-    # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
-    #                             #rescue_exception=
+    # @see    #rescue_exception=     The rescue of exceptions can be enabled or disabled through 
+    #                                #rescue_exception=
     def rescue_exception?
       !!@rescue_exception
     end
