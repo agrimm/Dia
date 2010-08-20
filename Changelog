@@ -3,7 +3,7 @@
 	* Fixed a bug that saw #e ( an alias for #exception ) always return nil.
 	  #exception itself worked properly.
 
-	* #redirect_stderr, #redirect_stdout, and #rescue_exception are 
+	* #redirect_stderr, #redirect_stdout, and #rescue_exception 
 	  have been added to the RubyBlock class and are documented as getters. 
 	  They're aliased as #redirect_stderr?, #redirect_stdout? and 
 	  #rescue_exception? respectively.
