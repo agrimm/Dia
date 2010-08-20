@@ -11,6 +11,91 @@ module Dia
     attr_reader :stdout
     attr_reader :exception
 
+    # @overload redirect_stderr=(boolean)
+    #   This method can enable or disable a feature that will redirect Standard Error output
+    #   in the process that is spawned to execute a sandbox.
+    #
+    #   @param  [true]   Enable   Passing true will enable the redirection of Standard Error output.
+    #
+    #   @param  [false]  Disable  Passing false will disable the redirection of Standard Error output.
+    #
+    #   @return [void]
+    #
+    #   @see    #stderr           Standard Error output can be accessed through #stderr.
+    #
+    #   @see    #redirect_stderr? #redirect_stderr? can tell you if Standard Error output is being
+    #                             redirected.
+    #                             
+    # @overload redirect_stderr 
+    #   This method will tell you if Standard Error output is being redirected in the process
+    #   spawned to execute a sandbox.
+    # 
+    #   @return [true]            Returns true when Standard Error output is being redirected.
+    #
+    #   @return [false]           Returns false when Standard Error output is not being redirected.
+    #
+    #   @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
+    #
+    #   @see    #stderr           Standard Error output can be accessed through #stderr.
+    attr_accessor :redirect_stderr
+
+    # @overload redirect_stdout=(boolean)
+    #   This method can enable or disable a feature that will redirect Standard Output
+    #   in the process that is spawned to execute a sandbox.
+    #
+    #   @param  [true]   Enable     Passing true will enable the redirection of Standard Output.
+    #
+    #   @param  [false]  Disable    Passing false will disable the redirection of Standard Output.
+    #
+    #   @return [void]
+    #
+    #   @see    #stdout             Standard Output can be accessed through #stdout.
+    #
+    #   @see    #redirect_stdout?   #redirect_stdout? can tell you if Standard Output is 
+    #                               being redirected.
+    #                               
+    # @overload redirect_stdout
+    #   This method will tell you if Standard Output is being redirected in the
+    #   process spawned to execute a sandbox.
+    #
+    #   @return [true]             Returns true when Standard Output is being redirected.
+    #
+    #   @return [false]            Returns false when Standard Output is not being redirected.
+    #
+    #   @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
+    #
+    #   @see    #stdout            Standard Ouput can be accessed through #stdout.
+    attr_accessor :redirect_stdout
+
+
+    # @overload rescue_exception=
+    #   This method can enable or disable a feature that will try to rescue exceptions 
+    #   that are raised in the process that is spawned to execute a sandbox.
+    #
+    #   @param  [true]   Enable     Passing true will enable the capture of exceptions.
+    #
+    #   @param  [false]  Disable    Passing false will disable the capture of exceptions.
+    #
+    #   @return [void]         
+    #
+    #   @see    #exception          An exception can be accessed through the #exception 
+    #                               method.
+    #   @since 2.0.0
+    #   
+    # @overload rescue_exception   
+    #   This method will tell you if an exception will be rescued in the process that is
+    #   spawned to execute a sandbox.
+    #   
+    #   @return [true]              Returns true when exceptions are being rescued.
+    #
+    #   @return [false]             Returns false when are exceptions are not being 
+    #                               rescued.
+    #   @since  2.0.0
+    #
+    #   @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
+    #                               #rescue_exception=
+    attr_accessor :rescue_exception
+
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
     #
@@ -57,33 +142,11 @@ module Dia
       @stdout
     end
 
-    # This method can enable or disable a feature that will redirect Standard Output
-    # in the process that is spawned to execute a sandbox.
-    #
-    # @param  [true]   Enable     Passing true will enable the redirection of Standard Output.
-    #
-    # @param  [false]  Disable    Passing false will disable the redirection of Standard Output.
-    #
-    # @return [void]
-    #
-    # @see    #stdout             Standard Output can be accessed through #stdout.
-    #
-    # @see    #redirect_stdout?   #redirect_stdout? can tell you if Standard Output is 
-    #                             being redirected.
     def redirect_stdout=(boolean)
       @redirect_stdout = boolean
     end
 
-    # This method will tell you if Standard Output is being redirected in the
-    # process spawned to execute a sandbox.
-    #
-    # @return [true]             Returns true when Standard Output is being redirected.
-    #
-    # @return [false]            Returns false when Standard Output is not being redirected.
-    #
-    # @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
-    #
-    # @see    #stdout            Standard Ouput can be accessed through #stdout.
+
     def redirect_stdout
       !!@redirect_stdout
     end
@@ -112,33 +175,10 @@ module Dia
       @stderr
     end
 
-    # This method can enable or disable a feature that will redirect Standard Error output
-    # in the process that is spawned to execute a sandbox.
-    #
-    # @param  [true]   Enable   Passing true will enable the redirection of Standard Error output.
-    #
-    # @param  [false]  Disable  Passing false will disable the redirection of Standard Error output.
-    #
-    # @return [void]
-    #
-    # @see    #stderr           Standard Error output can be accessed through #stderr.
-    #
-    # @see    #redirect_stderr? #redirect_stderr? can tell you if Standard Error output is being
-    #                           redirected.
     def redirect_stderr=(boolean)
       @redirect_stderr = boolean
     end
 
-    # This method will tell you if Standard Error output is being redirected in the process
-    # spawned to execute a sandbox.
-    # 
-    # @return [true]            Returns true when Standard Error output is being redirected.
-    #
-    # @return [false]           Returns false when Standard Error output is not being redirected.
-    #
-    # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
-    #
-    # @see    #stderr           Standard Error output can be accessed through #stderr.
     def redirect_stderr
       !!@redirect_stderr
     end
@@ -173,34 +213,11 @@ module Dia
       !!exception
     end
 
-    # This method will tell you if an exception will be rescued in the process that is
-    # spawned to execute a sandbox.
-    #   
-    # @return [true]              Returns true when exceptions are being rescued.
-    #
-    # @return [false]             Returns false when are exceptions are not being 
-    #                             rescued.
-    # @since  2.0.0
-    #
-    # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
-    #                             #rescue_exception=
     def rescue_exception
       !!@rescue
     end
     alias :rescue_exception? :rescue_exception
 
-    # This method can enable or disable a feature that will try to rescue exceptions 
-    # that are raised in the process that is spawned to execute a sandbox.
-    #
-    # @param  [true]   Enable     Passing true will enable the capture of exceptions.
-    #
-    # @param  [false]  Disable    Passing false will disable the capture of exceptions.
-    #
-    # @return [void]         
-    #
-    # @see    #exception          An exception can be accessed through the #exception 
-    #                             method.
-    # @since 2.0.0
     def rescue_exception=(boolean)
       @rescue = boolean
     end
