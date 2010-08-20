@@ -27,16 +27,13 @@ module Dia
     #                             redirected.
     #                             
     # @overload redirect_stderr 
-    #   This method will tell you if Standard Error output is being redirected in the process
-    #   spawned to execute a sandbox.
+    #   This method provides access to the object passed to {#redirect_stderr=}
+    #
+    #   @return [Object]            Returns the object passed to {#redirect_stderr=}
+    #   
+    #   @return [Boolean]           Returns false if {#redirect_stderr=} has not been called.
     # 
-    #   @return [true]            Returns true when Standard Error output is being redirected.
-    #
-    #   @return [false]           Returns false when Standard Error output is not being redirected.
-    #
-    #   @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
-    #
-    #   @see    #stderr           Standard Error output can be accessed through #stderr.
+    #   @see    #redirect_stderr?   #redirect_stderr?
     attr_accessor :redirect_stderr
 
     # @overload redirect_stdout=(boolean)
@@ -55,16 +52,13 @@ module Dia
     #                               being redirected.
     #                               
     # @overload redirect_stdout
-    #   This method will tell you if Standard Output is being redirected in the
-    #   process spawned to execute a sandbox.
+    #   This method provides access to the object passed to {#redirect_stdout=}
     #
-    #   @return [true]             Returns true when Standard Output is being redirected.
-    #
-    #   @return [false]            Returns false when Standard Output is not being redirected.
-    #
-    #   @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
-    #
-    #   @see    #stdout            Standard Ouput can be accessed through #stdout.
+    #   @return [Object]            Returns the object passed to {#redirect_stdout=}
+    #   
+    #   @return [Boolean]           Returns false if {#redirect_stdout=} has not been called.
+    # 
+    #   @see    #redirect_stdout?   #redirect_stdout?
     attr_accessor :redirect_stdout
 
 
@@ -82,18 +76,14 @@ module Dia
     #                               method.
     #   @since 2.0.0
     #   
-    # @overload rescue_exception   
-    #   This method will tell you if an exception will be rescued in the process that is
-    #   spawned to execute a sandbox.
+    # @overload rescue_exception
+    #   This method provides access to the object passed to {#rescue_exception=}
+    #
+    #   @return [Object]            Returns the object passed to {#rescue_exception=}
     #   
-    #   @return [true]              Returns true when exceptions are being rescued.
-    #
-    #   @return [false]             Returns false when are exceptions are not being 
-    #                               rescued.
-    #   @since  2.0.0
-    #
-    #   @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
-    #                               #rescue_exception=
+    #   @return [Boolean]           Returns false if {#rescue_exception=} has not been called.
+    # 
+    #   @see    #rescue_exception?  #rescue_exception?
     attr_accessor :rescue_exception
 
     # @param  [String] Profile Accepts one of five profiles which can be found
@@ -110,7 +100,7 @@ module Dia
                            "Please consult the documentation.") unless block_given?
       @profile         = profile
       @proc            = block
-      @rescue          = false
+      @rescue_exception          = false
       @redirect_stdout = false
       @redirect_stderr = false
       @pipes           = {}
@@ -146,11 +136,23 @@ module Dia
       @redirect_stdout = boolean
     end
 
-
     def redirect_stdout
+      @redirect_stdout
+    end
+
+    # This method will tell you if Standard Output is being redirected in the
+    # process spawned to execute a sandbox.
+    #
+    # @return [true]             Returns true when Standard Output is being redirected.
+    #
+    # @return [false]            Returns false when Standard Output is not being redirected.
+    #
+    # @see    #redirect_stdout=  Redirection of stdout can be enabled through #redirect_stdout=.  
+    #
+    # @see    #stdout            Standard Ouput can be accessed through #stdout.
+    def redirect_stdout?
       !!@redirect_stdout
     end
-    alias :redirect_stdout? :redirect_stdout
 
     # Provides access to the Standard Error stream of the process that was last used to execute
     # a sandbox. This feature is disabled by default. 
@@ -180,9 +182,22 @@ module Dia
     end
 
     def redirect_stderr
+      @redirect_stderr
+    end
+
+    # This method will tell you if Standard Error output is being redirected in the process
+    # spawned to execute a sandbox.
+    # 
+    # @return [true]            Returns true when Standard Error output is being redirected.
+    #
+    # @return [false]           Returns false when Standard Error output is not being redirected.
+    #
+    # @see    #redirect_stderr= Redirection of stderr can be enabled through #redirect_stderr=.
+    #
+    # @see    #stderr           Standard Error output can be accessed through #stderr.
+    def redirect_stderr?
       !!@redirect_stderr
     end
-    alias :redirect_stderr? :redirect_stderr
 
     # This method will tell you if an exception has been rescued in the process that was
     # last used to execute a sandbox.   
@@ -213,15 +228,24 @@ module Dia
       !!exception
     end
 
-    def rescue_exception
-      !!@rescue
+    # This method will tell you if an exception will be rescued in the process that is
+    # spawned to execute a sandbox.
+    #   
+    # @return [true]              Returns true when exceptions are being rescued.
+    #
+    # @return [false]             Returns false when are exceptions are not being 
+    #                             rescued.
+    # @since  2.0.0
+    #
+    # @see    #rescue_exception=  The rescue of exceptions can be enabled or disabled through 
+    #                             #rescue_exception=
+    def rescue_exception?
+      !!@rescue_exception
     end
-    alias :rescue_exception? :rescue_exception
 
     def rescue_exception=(boolean)
-      @rescue = boolean
+      @rescue_exception = boolean
     end
-
 
     # Provides access to the data of an exception object that has been rescued in the process 
     # that was last used to execute a sandbox. This feature is disabled by default.  
@@ -316,7 +340,7 @@ module Dia
         @pid = fork do
           redirect(:stdout) if @redirect_stdout
           redirect(:stderr) if @redirect_stderr
-          if @rescue
+          if @rescue_exception
             begin
               initialize_sandbox
               write_return_value(@proc.call(*args))
@@ -381,7 +405,7 @@ module Dia
       # @api private
       def open_pipes_if_needed
         @pipes[:return_reader]   , @pipes[:return_writer]    = IO.pipe
-        @pipes[:exception_reader], @pipes[:exception_writer] = IO.pipe if @rescue
+        @pipes[:exception_reader], @pipes[:exception_writer] = IO.pipe if @rescue_exception
         @pipes[:stdout_reader]   , @pipes[:stdout_writer]    = IO.pipe if @redirect_stdout
         @pipes[:stderr_reader]   , @pipes[:stderr_writer]    = IO.pipe if @redirect_stderr
       end
