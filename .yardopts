@@ -1,7 +1,7 @@
 -m markdown
 -o docs
 --no-private
---readme README.mkd
+--readme README.md
 --hide-void-return
 --no-cache
 -
