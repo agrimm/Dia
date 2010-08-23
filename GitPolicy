@@ -4,7 +4,8 @@
       It shouldn't ever contain code that is experimental or that
       hasn't been thoroughly tested. 
 
-    * bug-fixes is a branch which inherits from master. 
+    * bug-fixes is a branch which inherits from the latest stable 
+      release of the project. 
       This branch serves as a branch that fixes issues in the latest 
       stable release of the project. 
 
