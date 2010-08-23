@@ -44,7 +44,7 @@ simple, and a joy to use. I hope you feel the same way :-)
 * Wiki documentation  
   *Work in progress*
 
-## Supported Rubies.
+## Supported Rubies
 
 The following Ruby implementations have had the test suite run against them, and
 reported a 100% success rate.
