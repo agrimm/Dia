@@ -60,6 +60,12 @@ MacRuby is not supported because it does not support Kernel.fork, and it won't a
 for fork anytime soon(if ever).  
 JRuby has experimental support for fork, but I haven't tried it.
  
+## Contribute
+Contributions and collaboration is welcomed with open arms, but before 
+you contribute, you should take the time to read the 
+[GitPolicy](http://github.com/robgleeson/Dia/blob/master/GitPolicy) and 
+[CodingStyle](http://github.com/robgleeson/Dia/blob/master/CodingStyle) files.
+
 ## Bugs  
 Bug reports are _very_ welcome, and can be reported through the
 [issue tracker](http://github.com/robgleeson/dia/issues).
