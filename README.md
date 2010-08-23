@@ -34,7 +34,7 @@ simple, and a joy to use. I hope you feel the same way :-)
 
 ## Documentation
 
-* [API Documentation](http://yardoc.org/docs/robgleeson-Dia/)   
+* [API Documentation](http://doc.fork-bomb.org/dia)   
   Written using YARD, the API documentation makes a great reference.  
   *The API documentation linked is for the latest stable release*
 
