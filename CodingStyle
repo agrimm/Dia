@@ -1,0 +1,15 @@
+== Coding Style
+
+    * Soft tabs(or "spaces") with a width of two spaces should be used when
+      identing code.
+
+    * The width of a line of code shouldn't be more than 100 columns, but exceptions
+      can be made in certain circumstances such as documentation that exceeds 100 columns
+      by a single column or two.
+
+    * When a method receives arguments, parenthesis should always be used. 
+
+The usual Ruby conventions should be applied as well, such as snake_case for method names, 
+CamelCase for classes/modules, and UPPERCASE_SNAKE_CASE for constants which do not reference
+a class or module.
+
