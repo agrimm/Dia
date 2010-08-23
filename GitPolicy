@@ -1,0 +1,26 @@
+== Git Policy
+
+* master is reserved for the latest stable code in the project.
+  It shouldn't ever contain code that is experimental or that
+  hasn't been thoroughly tested. 
+
+* bug-fixes is a branch which inherits from master. 
+  This branch serves as a branch that fixes issues in the latest 
+  stable release of the project. 
+
+  Changes made in this branch should be merged into experimental, 
+  and tested thoroughly. 
+  Ideally, every bug has a test that confirms it has been fixed). 
+
+* topic-branches(ie, feature branches) inherit from master, and are 
+  then merged into experimental to be thoroughly tested.
+
+* After experimental has been confirmed to be stable, it is merged into
+  master.
+
+  The experimental branch is the only branch that gets merged back into 
+  master, all other branches(topic branches, bug fixes) are merged into 
+  the experimental branch for testing, before being merged into master.
+
+This workflow hasn't been set in stone yet, it might be altered and it's open 
+to discussion and possibly change, too. 
