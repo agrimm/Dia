@@ -52,7 +52,9 @@ reported a 100% success rate.
 * MRI
   * 1.8.7-p299
   * 1.9.1-p378
-  * 1.9.2-rc1    
+  * 1.9.2-rc1
+  * 1.9.2-p0
+
 * REE
   * Ruby Enterprise Edition 2010.02 (1.8.7-p253)
 
