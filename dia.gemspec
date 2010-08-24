@@ -33,11 +33,14 @@ Gem::Specification.new do |s|
   The >=2.0.0 releases are not backward compatiable with the 1.0 series.
   
   Resources: 
-  * API Documentation    http://yardoc.org/docs/robgleeson-Dia/
+  * API Documentation    http://doc.fork-bomb.org/dia
   * Github               http://github.com/robgleeson/dia    
   * Mailing List         http://groups.google.com/group/ruby-dia
 
   Release notes are available at the mailing list.
+  
+  Please note the API documentation is no longer hosted at http://yardoc.org
+  See the link posted above for the new documentation link.
 
   Happy Hacking!
   --------------------------------------------------------------------------------  
