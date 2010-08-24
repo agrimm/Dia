@@ -1,4 +1,7 @@
-2010-08-20  Robert Gleeson <rob@flowof.info>
+2010-08-20  Robert Gleeson <rob@flowof.info> (2.2.2)
+
+	* Documented the VERSION constant.
+	  Dia has 100% documentation coverage now.
 
 	* Fixed GH Issue 3 and GH Issue 4.
 	  See http://github.com/robgleeson/dia/issues for more info.
