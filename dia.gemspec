@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.summary     = s.description
  
   s.require_paths = ["lib"]
-  s.files         = Dir["lib/**/*.rb"] + Dir["test/**/*.rb"] + %w(COPYING Changelog README.md 
-                                                                  dia.gemspec)
+  s.files         = Dir["lib/**/*.rb"] + Dir["test/**/*.rb"] + %w(COPYING Changelog CodingStyle 
+                                                                  GitPolicy README.md dia.gemspec)
   s.test_files    = Dir["test/**/*.rb"]
   
 
