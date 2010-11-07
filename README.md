@@ -1,5 +1,5 @@
 # Dia
-The **Dia** project can impoose restrictions(ie, a sandbox) on a block of Ruby 
+The **Dia** project can impose restrictions (ie, a sandbox) on a block of Ruby 
 code or an OSX application. 
 
 Restrictions are imposed by a OSX API that exists on Mac OSX 10.5 and Mac OSX 10.6.  
